@@ -24,6 +24,60 @@ const batch = [valid1, valid2, valid3, valid4, valid5, invalid1, invalid2, inval
 
 
 // Add your functions below:
+const validateCred = arr => {
+
+    let total = 0;
+    let flag = false;
+    for(let i=arr.length-1; i>=0; i--){
+        let currValue = arr[i]
+        if(flag){
+            if((currValue *= 2) > 9){
+                currValue -= 9
+            }  
+        }
+        total += currValue
+        flag = !flag
+    }
+    return total % 10 == 0;
+}
+
+const findInvalidCards = (nestedArr) => {
+    const invalidCards = nestedArr.filter(arr => {
+        if(!validateCred(arr))
+            return true;
+    })
+    return invalidCards;
+}
+
+function idInvalidCardCompanies(cards){
+    const invalidCardCompanies = {};
+
+    for(card of cards){
+        switch (card[0]){
+            case 3:
+                invalidCardCompanies['Amex (American Express)'] = card;
+                break
+            case 4:
+                invalidCardCompanies['Visa'] = card;
+                break
+            case 5:
+                invalidCardCompanies['Mastercard'] = card;
+                break
+            case 6:
+                invalidCardCompanies['Discover'] = card;
+                break
+            default:
+                invalidCardCompanies[card] = 'Company not found'
+                break
+        }
+    }
+
+    return invalidCardCompanies
+}
+
+// console.log(findInvalidCards(batch));
+
+console.log(idInvalidCardCompanies(batch));
 
 
 
